@@ -196,193 +196,182 @@ $ rustdoc src/lib.rs --target x86_64-pc-windows-gnu
 
 ## `--default-theme`: set the default theme
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --default-theme=ayu
 ```
 
-Sets the default theme (for users whose browser has not remembered a
-previous theme selection from the on-page theme picker).
+设置默认主题（适用于浏览器未从页面主题选择器中记住
+的用户）。
 
-The supplied value should be the lowercase version of the theme name.
-The set of available themes can be seen in the theme picker in the
-generated output.
+提供的值应该是主题名称的小写版本。
+可用主题集可在主题选择器中查看
+生成的输出中的主题选择器中查看。
 
-Note that the set of available themes - and their appearance - is not
-necessarily stable from one rustdoc version to the next. If the
-requested theme does not exist, the builtin default (currently
-`light`) is used instead.
+需要注意的是，可用主题集及其外观在不同版本的 rustdoc 中不一定稳定。
+在不同的 rustdoc 版本之间并不一定稳定。如果
+请求的主题不存在，则会使用内置的默认主题 (当前为
+`light`) 会被使用。
 
 ## `--markdown-css`: include more CSS files when rendering markdown
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc README.md --markdown-css foo.css
 ```
 
-When rendering Markdown files, this will create a `<link>` element in the
-`<head>` section of the generated HTML. For example, with the invocation above,
+在渲染 Markdown 文件时，这将在生成的 HTML 的元素。例如，上面的调用
 
 ```html
 <link rel="stylesheet" type="text/css" href="foo.css" />
 ```
 
-will be added.
+将被添加。
 
-When rendering Rust files, this flag is ignored.
+在渲染 Rust 文件时，该标记将被忽略。
 
 ## `--html-in-header`: include more HTML in <head>
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --html-in-header header.html
 $ rustdoc README.md --html-in-header header.html
 ```
 
-This flag takes a list of files, and inserts them into the `<head>` section of
-the rendered documentation.
+该标记接收文件列表，并将其插入渲染文档的 `<head>` 部分。
 
 ## `--html-before-content`: include more HTML before the content
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --html-before-content extra.html
 $ rustdoc README.md --html-before-content extra.html
 ```
 
-This flag takes a list of files, and inserts them inside the `<body>` tag but
-before the other content `rustdoc` would normally produce in the rendered
-documentation.
+该标记会获取一个文件列表，并将它们插入`<body>`标记内，但在`rustdoc`通常会在渲染时生成的其他内容之前
+之前插入。
 
 ## `--html-after-content`: include more HTML after the content
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --html-after-content extra.html
 $ rustdoc README.md --html-after-content extra.html
 ```
+这个标志会读取一个文件列表，并将它们插入到生成的文档中，位置在`</body>`标签之前，
+但在通常由`rustdoc`生成的其他内容之后。
 
-This flag takes a list of files, and inserts them before the `</body>` tag but
-after the other content `rustdoc` would normally produce in the rendered
-documentation.
 
 ## `--markdown-playground-url`: control the location of the playground
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc README.md --markdown-playground-url https://play.rust-lang.org/
 ```
-
-When rendering a Markdown file, this flag gives the base URL of the Rust
-Playground, to use for generating `Run` buttons.
+当渲染Markdown文件时，此标志会提供Rust Playground的基URL，用于生成`Run`按钮。
 
 ## `--markdown-no-toc`: don't generate a table of contents
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc README.md --markdown-no-toc
 ```
-
-When generating documentation from a Markdown file, by default, `rustdoc` will
-generate a table of contents. This flag suppresses that, and no TOC will be
-generated.
+当从 Markdown 文件生成文档时，默认情况下，`rustdoc` 会生成一个目录。此标志会禁用此功能，不会生成目录。
 
 ## `-e`/`--extend-css`: extend rustdoc's CSS
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs -e extra.css
 $ rustdoc src/lib.rs --extend-css extra.css
 ```
 
-With this flag, the contents of the files you pass are included at the bottom
-of Rustdoc's `theme.css` file.
+使用此标志，您传递的文件的内容将包含在底部Rustdoc的`theme.css`文件。
 
-While this flag is stable, the contents of `theme.css` are not, so be careful!
-Updates may break your theme extensions.
+虽然这个标志是稳定的，但`theme.css`的内容不是，所以要小心!
+更新可能会破坏您的主题扩展。
+
 
 ## `--sysroot`: override the system root
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --sysroot /path/to/sysroot
 ```
 
-Similar to `rustc --sysroot`, this lets you change the sysroot `rustdoc` uses
-when compiling your code.
+与`rustc --sysroot`类似，这允许您更改`rustdoc`使用的sysroot在编译代码时。
 
 ### `--edition`: control the edition of docs and doctests
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --edition 2018
 $ rustdoc --test src/lib.rs --edition 2018
 ```
 
-This flag allows `rustdoc` to treat your rust code as the given edition. It will compile doctests with
-the given edition as well. As with `rustc`, the default edition that `rustdoc` will use is `2015`
-(the first edition).
+这个标志允许`rustdoc`将您的rust代码视为给定的版本。它将编译doctest
+给定的版本也是如此。和 `rustc`一样，`rustdoc`使用的默认版本是`2015`
+(第一版)。
 
 ## `--theme`: add a theme to the documentation output
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --theme /path/to/your/custom-theme.css
 ```
 
-`rustdoc`'s default output includes two themes: `light` (the default) and
-`dark`. This flag allows you to add custom themes to the output. Giving a CSS
-file to this flag adds it to your documentation as an additional theme choice.
-The theme's name is determined by its filename; a theme file named
-`custom-theme.css` will add a theme named `custom-theme` to the documentation.
+`rustdoc`的默认输出包含两个主题:`light`(默认)和`dark`。
+此标志允许您向输出添加自定义主题。给出CSS将其作为附加主题选项添加到文档中。
+主题的名称由其文件名决定;一个名为`custom-theme.css`
+将添加一个名为`custom-theme`的主题到文档中。
 
 ## `--check-theme`: verify custom themes against the default theme
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc --check-theme /path/to/your/custom-theme.css
 ```
 
-While `rustdoc`'s HTML output is more-or-less consistent between versions, there
-is no guarantee that a theme file will have the same effect. The `--theme` flag
-will still allow you to add the theme to your documentation, but to ensure that
-your theme works as expected, you can use this flag to verify that it implements
-the same CSS rules as the official `light` theme.
+虽然 `rustdoc`的HTML输出在不同版本之间或多或少是一致的
+不能保证主题文件具有相同的效果。`--theme`标志
+仍然允许您将主题添加到文档中，但要确保这一点
+您的主题按预期工作，您可以使用此标志来验证它是否实现
+与官方的`light`主题相同的CSS规则。
 
-`--check-theme` is a separate mode in `rustdoc`. When `rustdoc` sees the
-`--check-theme` flag, it discards all other flags and only performs the CSS rule
-comparison operation.
+`--check-theme` 在`rustdoc`中是一个单独的模式。当`rustdoc`看到
+`--check-theme` 标志，它会丢弃所有其他标志，只执行CSS规则
+比较操作。
 
 ### `--crate-version`: control the crate version
 
-Using this flag looks like this:
+使用该flag的方式如下：
 
 ```bash
 $ rustdoc src/lib.rs --crate-version 1.3.37
 ```
 
-When `rustdoc` receives this flag, it will print an extra "Version (version)" into the sidebar of
-the crate root's docs. You can use this flag to differentiate between different versions of your
-library's documentation.
+当`rustdoc`接收到这个标志时，它将在侧边栏中打印一个额外的"Version(版本)"
+crate根目录的docs。您可以使用此标志来区分不同版本的
+库的文档。
 
 ## `@path`: load command-line flags from a path
 
-If you specify `@path` on the command-line, then it will open `path` and read
-command line options from it. These options are one per line; a blank line indicates
-an empty option. The file can use Unix or Windows style line endings, and must be
-encoded as UTF-8.
+如果您在命令行中指定 `@path` ，那么它将打开 `path` 并读取
+命令行选项。这些选项每行一个;空行表示
+空选项。该文件可以使用Unix或Windows样式的行结尾，并且必须是
+编码为UTF-8。
 
 ## `--passes`: add more rustdoc passes
 
